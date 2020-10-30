@@ -1,0 +1,188 @@
+Blaga Ana-Maria-Andreea, 314CB, ACS
+
+In "structures.h":
+
+	- Sunt definite structurile pentru lista generica, stiva generica si coada generica si niste definitii urile in lucrul cu acestea(VIDA, IC, VF etc).
+
+	- Se gasesc prototipurile functiilor de prelucrare pentru liste, stive si cozi.
+
+In "lista.c":
+
+	- Se gasesc functiile pentru prelucrarea unei liste geerice, respectiv:
+		
+		~ Functia "AllocGenericCell" pentru alocarea unei celule generice(campul info este de tip void *):
+			- Se aloca memorie pentru celula generica;
+			- Se verifica alocarea;
+			- Se seteaza campul info al celulei la adresa dorita, iar campul urm la NULL.
+		
+		~ Functia "DistrLG" pentru distrugerea unei liste generice:
+			- Se elimina pe rand toate celulele din lista pana cand lista devine vida.
+		
+		~ Functia "InsLG" pentru inserarea unei celule la sfarsitul unei liste generice:
+			- Se aloca memorie pentru noua celula si se verifica alocarea;
+			- Daca lista este vida atunci celula inserata va fi prima celula din lista, altfel se cauta ultima celula din lista si se va insera dupa aceasta.
+
+In "stiva.c":
+
+	- Se gasesc functiile pentru prelucrarea unei stive generice, respectiv:
+		
+		~ Functia "InitS" pentru initializarea unei stive:
+			- Se aloca memorie pentru structura de tip stiva si se verifica alocarea;
+			- Se seteaza dimensiunea elementelor din stiva;
+			- Varful stivei este setat pe NULL(stiva vida).
+		
+		~ Functia "Push" pentru introducerea unui element in stiva:
+			- Se aloca memorie pentru noua celula introdusa in stiva si pentru campul info al acesteia, apoi se verifica alocarile;
+			- Se copiaza informatia dorita in campul info al celulei si se introduce acesta in stiva(varful stivei este setat la adresa noului element, iar campul urm al noului varfeste setat la adresa vechiului varf).
+		
+		~ Functia "Pop" pentru extragerea unui element din stiva:
+			- Se copiaza informatia din celula ce urmeaza a fi eliminata la adresa dorita;
+			- Se elimina celula din stiva(varful stivei este setat la urmatorul element).
+		
+		~ Functia "ResetS" pentru resetarea unei stive:
+			- Se elibereaza memoria ocupata de toate elmentele din stiva;
+			- Se seteaza varful stivei la NULL(stiva vida).
+		
+		~ Functia "DistrS" pentru distrugerea unei stive:
+			- Se apeleaza functia ResetS;
+			- Se elibereaza memoria ocupata de stiva. 
+
+In "coada.c":
+
+	- Se gasesc functiile pentru prelucrarea unei cozi generice, respectiv:
+
+		~ Functia "InitQ" pentru initializarea unei cozi:
+			- Se aloca memorie pentru structura de tip coada si se verifica alocarea;
+			- Se seteaza dimensiunea elementelor din coada;
+			- Inceputul si sfarsitul cozii sunt setate pe NULL(coada vida).
+		
+		~ Functia "IntrQ" pentru introducerea unui element in coada:
+			- Se aloca memorie pentru noua celula introdusa in coada si pentru campul info al acesteia, apoi se verifica alocarile;
+			- Se copiaza informatia dorita in campul info al celulei si se introduce acesta in coada(sfarsitul cozii este setat la noua celula, iar in cazul in care coada este initial vida si inceputul cozii este setat tot la aceasta adresa);
+			- Campul urm al celulei este setat la NULL.
+		
+		~ Functia "ExtrQ" pentru extragerea unui element din coada:
+			- Se copiaza informatia din celula ce urmeaza a fi eliminata la adresa dorita;
+			- Se elimina celula din coada(inceputul cozii este setat la urmatorul element);
+			- Daca nceputul cozii devine NULL, atunci si sfarsitul acesteia este setat tot la NULL(coada vida).
+		
+		~ Functia "ResetQ" pentru resetarea unei cozi:
+			- Se elibereaza memoria ocupata de toate elmentele din coada;
+			- Se seteaza inceputul si sfarsitul cozii la NULL(coada vida).
+		
+		~ Functia "DistrQ" pentru distrugerea unei cozi:
+			- Se apeleaza functia ResetQ;
+			- Se elibereaza memoria ocupata de coada.
+
+In "browser.h":
+
+	- Sunt definite structurile pentru Tab si Pagina Web.
+
+	- Se gasesc prototipurile functiilor folosite in implementarea brower-ului.
+
+In "browser.c":
+
+	- Se gasesc functiile folosite in implementarea brower-ului, respectiv:
+		
+		~ Functia "SetBandwidth" pentru schimbarea valorii vitezei de transfer.
+		
+		~ Functia "ChangeTab" pentru schimbarea tab-ului curent.
+		
+		~ Functia "DelWebPage" pentru eliberarea memoriei ocupata de o structura de tip AWebPage:
+			- Se elibereaza memoria ocupata de vectorul de resurse, apoi cea ocupata de pagina web.
+		
+		~ Functia "NewWebPage" pentru alocarea de memorie pentru o structura de tip AWebPage:
+			- Se aloca memorie si se verifica alocarea;
+			- Se copiaza adresa URL a paginii si sunt generate resursele corespunzatoare paginii web pe baza acestuia.
+		
+		~ Functia "NewTab" pentru alocarea de memorie pentru o structura de tip Atab:
+			- Se aloca memorie si se verifica alocarea;
+			- Se seteaza pagina curenta ca NULL si se initializeaza stivele de back, respectiv forward;
+			- Se verifica initializarile;
+			- Se insereaza noul tab in lista de taburi si se seteaza tabul curent la noul tab adaugat in lista.
+		
+		~ Functia "DistrTab" pentru eliberarea memoriei ocupata de de un element de tip ATab.
+			- Se verifica daca este deschisa o pagina in tab-ul respectiv, iar in caz afirmativ se elibereaza memoria ocupata de aceasta.
+			- Se distrug stivele de back si forward.
+			- Se elibereaza memoria ocupata de tab-ul respectiv.
+		
+		~ Functia "DelTab" pentru eliminarea ultimului tab deschis din lista de taburi:
+			- Se cauta ultimul tab din lista de taburi;
+			- Se apeleaza functia "DistrTab" pentru tab-ul respectiv;
+			- Se seteaza campul urm al penultimului element la NULL in cazul in care dupa eliminare ramane o lista nevida, iar in caz contrar se seteaza inceputul lstei la NULL;
+			- Daca tab-ul care este inchis este cel curent, atunci tab-ul curent va fi setat la ultimul tab deschis.
+
+		~ Functia "PrintOpenTabs" pentru afisarea URL-urilor paginilor curente din taburile deschise:
+			- In cazul in care intr-un tab nu este deschisa o pagina web se va afisa "empty".
+
+		~ Functia "GetCurrentTab" pentru a gasi adresa tabului curent din lista de taburi:
+			- Se parcurge lista de tab-uri pana cand se ajunge la tab-ul curent.
+
+		~ Functia "Back" pentru a permite accesarea paginii anterioare:
+			- Se cauta tab-ul curent, apoi se scoate elementul(pagina web) din varful stivei de back;
+			- In cazul in care stiva de back este goala se va afisa un mesaj de eroare, altfel pagina curenta din tab va in introdusa in stiva de forward, iar pagina curenta va fi setata la elementul extras anterior.
+
+		~ Functia "Forward" pentru a permite accesarea paginii urmatoare:
+			- Se cauta ta-bul curent, apoi se scoate elementul(pagina web) din varful stivei de forward;
+			- In cazul in care stiva de forward este goala se va afisa un mesaj de eroare, altfel pagina curenta din tab va in introdusa in stiva de back, iar pagina curenta va fi setata la elementul extras anterior.
+
+		~ Functia "PrintGlobalHistory" pentru afisarea istoricului global al browser-ului.:
+			- Se initializeaza coada auxiliara si se verifica initializarea;
+			- Se aloca memorie pentru o celula auxiliara si se verifica alocarea;
+			- Se extrage pe rand cate un element din coada istoricului global, se afiseaza continutul acestuia(o adresa URL), apoi acesta este introdus intr-o coada auxiliara;
+			- In final sunt mutate elementele din coada auxiliara in coada istoricului global.
+
+		~ Functia "DelGlobalHistory" pentru stergerea unui numar de "intrari" din istoricul global al browser-ului:
+			- Daca numarul de eliminari dorit este "0" se reseateaza coada istoricului global.
+			- Altfel, se extrage pe rand cate un element din coada istoricului global si este eliberata memoria ocupata de acesta pana cand se atinge numarul de eliminari dorit.
+
+		~ Functia "PrintResourcesFromCurrentPage" pentru afisarea resurselor disponibile in pagina curenta:
+			- Se cauta tab-ul curent in lista de taburi, iar in cazul in care pagina curenta din tab-ul respectiva exista si are resurse sunt afisate acestea.
+
+		~ Functia "PrintDownloadHistory" pentru afisarea istoricului de descarcari al browserului:
+			- Se initializeaza coada auxiliara si se verifica initializarea;
+			- Se aloca memorie pentru o celula auxiliara si se verifica alocarea;
+			- Mai intai sunt afisare descarcarile incomplete(stocate in coada de descarcari):
+				~ Astfel,se extrage cate un element din coada, sunt afisate numele descarcarii, cati bytes mai sunt de descarcat si cati bytes are resursa respectiva, apoi acest element este introdus intr-o coada auxiliara;
+			- Dupa ce coada de descarcari incomplete este golita elementele din coada auxiliara sunt mutate in aceasta.
+			- Apoi sunt afisate elementele din lista de descarcari complete, astfel: numele resursei si starea in care se afla, adica "completed".
+
+		~ Functia "IntrPriorityQ" pentru introducerea unui element(a unei resurse) in coada de prioritati a descarcarilor(Coada este structurata astfel: elementul cu cei mai putini bytes ramasi
+   		  de descarcat vai fi primul din coada etc.):
+			- Se initializeaza coada auxiliara si se verifica initializarea;
+			- Se aloca memorie pentru o celula auxiliara si se verifica alocarea;
+			- Pentru a introduce un nou element in acesata coada sunt extrase mai intai din coada elementele care au valoarea ramasa de descarcat mai mica decat acesta si introduse in coada auxiliara;
+			- Cand regula de mai sus nu mai este respectata se insereaza elementul in coada auxiliara si se continua extragerea din coada initiala si introducereain cea auxiliara;
+			- In final elementele din coada auxiliara sunt mutate in coada initiala.
+
+		~ Functia "DownloadResource" pentru descarcarea unei resurse dintr-o pagina:
+			- Se cauta tab-ul curent in lista de taburi;
+			- In cazul in care in tab-ul respectiv exista o pagina deschisa resursele din aceasta vor fi introduse in coada de descarcari a browserului.
+
+		~ Functia "Wait" pentru a realiza o trecere fictiva a timpului, permitand descarcarilor sa inainteze:
+			- Capacitatea de descarcare este calculata ca produs dintre viteza de transfer si timp;
+			- Cat timp exista elemente in coada de descarcari a browserului si capacitate de descarcare se vor descarca resurse;
+			- In cazul in care o resursa s-a terminat de descarcat aceasta este scoasa din coada si introdusa in lista de descarcari finalizate.
+
+		~ Functia "GoTo" pentru accesarea unei pagini web in tab-ul curent:
+			- Se cauta tab-ul curent in lista de taburi;
+			- Daca exista deja o pagina deschisa in tab-ul curent acesta este introdusa in stiva de back, iar stiva de forward este golita;
+			- Se elibereaza memoria ocupata de pagina curenta si se creeaza o noua pagina curenta pe baza URL-ului acesteia folosind functia "NewWebPage".
+
+In "main":
+	
+	- Se verfica daca au fost introduse datele initiale: numele fisierului de intrare si cel al fisierului de iesire;
+
+	- Se initializeaza elementele componenete ale browser-ului: viteza de transfer, tab-ul curent, lista de taburi, coada istoricului global, lista de descarcari finalizate, coda de descarcari nefinalizate;
+
+	- Se deschide fisierul de intrare si se verifica daca aceasta a reusit;
+
+	- Se deschide fisierul de iesire si se verifica daca aceasta a reusit;
+	
+	- Se executa comenzile existente in fisierul de intrare;
+
+	- Se elibereaza memoria si se inchid fisierele de intrare si iesire.
+
+	                                       Total: [85/85]
+
+                                           Bonus: [20/20]
